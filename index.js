@@ -1,11 +1,18 @@
 const express = require("express")
 const app = express()
 
-app.listen(3000, ()=>{
-    console.log("App is running successfully")
-})
+require("dotenv").config();
+const PORT = process.env.PORT || 5000;
 
-app.get("/",(req,res)=>{
-    console.log("This is Home Page")
-    res.send("<h1> This is my Home Page </h1>")
+app.use(express.json())
+
+const blog = require("./routes/blog")
+
+app.use("/api/v1",blog);
+
+const connectWithDb = require("./config/database");
+connectWithDb();
+
+app.listen(PORT, ()=>{
+    console.log(`App is started at port no ${PORT}`);
 })
