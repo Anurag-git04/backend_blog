@@ -1,3 +1,5 @@
+
+
 const express = require("express")
 const app = express()
 
@@ -6,16 +8,17 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json())
 
-// const blog = require("./routes/blog")
-// app.use("/api/v1",blog);
+const blog = require("./routes/blog")
 
-const connectWithDb = require("./config/database");
-connectWithDb();
+app.use("/api/v1",blog);
+
+const connectwithDb = require("./config/database")
+connectwithDb();
 
 app.listen(PORT, ()=>{
-    console.log(`App is started at port no ${PORT}`);
+    console.log(`Server is running on port ${PORT}`)
 })
 
-// app.get("/",(req,res)=>{
-//     res.send(`<h1>This is my homepage baby</h1>`)
-// })
+app.get("/",(req,res)=>{
+    res.send("Welcome to my blog API")
+})
